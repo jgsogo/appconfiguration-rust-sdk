@@ -1,0 +1,21 @@
+[package]
+name = "appconfiguration_rust_sdk"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+reqwest = { version = "0.12.7", features = ["json", "blocking"] }
+tokio = { version = "1.40.0", features = ["full"] }
+serde = { version = "1.0.209", features = ["derive"] }
+serde_json = { version = "1.0.128" }
+once_cell = "1.19.0"
+murmur3 = "0.5.2"
+futures-util = "0.3.30"
+tungstenite = { version = "0.24.0", features = ["native-tls"] }
+url = "2.5.2"
+http = "1.1.0"
+
+
+[dev-dependencies]
+dotenvy = "0.15.7"
+rstest = "0.23.0"

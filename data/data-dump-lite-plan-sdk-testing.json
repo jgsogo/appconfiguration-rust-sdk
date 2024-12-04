@@ -1,0 +1,368 @@
+{
+	"environments": [
+		{
+			"name": "Dev",
+			"environment_id": "dev",
+			"description": "Environment created on instance creation",
+			"tags": "",
+			"color_code": "#FDD13A",
+			"features": [
+				{
+					"name": "F1",
+					"feature_id": "f1",
+					"description": "",
+					"tags": "",
+					"type": "NUMERIC",
+					"enabled_value": 5,
+					"disabled_value": 0,
+					"segment_rules": [
+						{
+							"rules": [
+								{
+									"segments": [
+										"l2dfo8do"
+									]
+								}
+							],
+							"value": 40,
+							"order": 1
+						},
+						{
+							"rules": [
+								{
+									"segments": [
+										"l2dfos8y"
+									]
+								}
+							],
+							"value": 60,
+							"order": 2
+						},
+						{
+							"rules": [
+								{
+									"segments": [
+										"l2dfo8do",
+										"l2dfos8y"
+									]
+								}
+							],
+							"value": 80,
+							"order": 3
+						},
+						{
+							"rules": [
+								{
+									"segments": [
+										"l2dfr61d"
+									]
+								}
+							],
+							"value": 25,
+							"order": 4
+						}
+					],
+					"collections": [
+						{
+							"collection_id": "blue-charge",
+							"name": "Blue charge"
+						}
+					],
+					"enabled": true,
+					"isOverridden": true
+				},
+				{
+					"name": "F2",
+					"feature_id": "f2",
+					"description": "",
+					"tags": "",
+					"type": "STRING",
+					"format": "TEXT",
+					"enabled_value": "inherited-enabled",
+					"disabled_value": "disabled",
+					"segment_rules": [
+						{
+							"rules": [
+								{
+									"segments": [
+										"l2dfr61d"
+									]
+								}
+							],
+							"value": "$default",
+							"order": 1
+						}
+					],
+					"collections": [
+						{
+							"collection_id": "blue-charge",
+							"name": "Blue charge"
+						}
+					],
+					"enabled": true,
+					"isOverridden": true
+				},
+				{
+					"name": "F3",
+					"feature_id": "f3",
+					"description": "",
+					"tags": "",
+					"type": "BOOLEAN",
+					"enabled_value": true,
+					"disabled_value": false,
+					"segment_rules": [],
+					"collections": [
+						{
+							"collection_id": "blue-charge",
+							"name": "Blue charge"
+						}
+					],
+					"enabled": true,
+					"isOverridden": true
+				},
+				{
+					"name": "F4",
+					"feature_id": "f4",
+					"description": "",
+					"tags": "",
+					"type": "BOOLEAN",
+					"enabled_value": true,
+					"disabled_value": false,
+					"segment_rules": [
+						{
+							"rules": [
+								{
+									"segments": [
+										"l2dfr61d"
+									]
+								}
+							],
+							"value": true,
+							"order": 1
+						}
+					],
+					"collections": [
+						{
+							"collection_id": "blue-charge",
+							"name": "Blue charge"
+						}
+					],
+					"enabled": true,
+					"isOverridden": true
+				}
+			],
+			"properties": [
+				{
+					"name": "p1",
+					"property_id": "p1",
+					"description": "",
+					"tags": "",
+					"type": "NUMERIC",
+					"value": 5,
+					"segment_rules": [
+						{
+							"rules": [
+								{
+									"segments": [
+										"l2dfo8do"
+									]
+								}
+							],
+							"value": 40,
+							"order": 1
+						},
+						{
+							"rules": [
+								{
+									"segments": [
+										"l2dfos8y"
+									]
+								}
+							],
+							"value": 60,
+							"order": 2
+						},
+						{
+							"rules": [
+								{
+									"segments": [
+										"l2dfo8do",
+										"l2dfos8y"
+									]
+								}
+							],
+							"value": 80,
+							"order": 3
+						},
+						{
+							"rules": [
+								{
+									"segments": [
+										"l2dfr61d"
+									]
+								}
+							],
+							"value": 444,
+							"order": 4
+						}
+					],
+					"collections": [
+						{
+							"collection_id": "blue-charge",
+							"name": "Blue charge"
+						}
+					],
+					"isOverridden": true
+				},
+				{
+					"name": "p2",
+					"property_id": "p2",
+					"description": "",
+					"tags": "",
+					"type": "STRING",
+					"format": "TEXT",
+					"value": "inherited-property",
+					"segment_rules": [
+						{
+							"rules": [
+								{
+									"segments": [
+										"l2dfr61d"
+									]
+								}
+							],
+							"value": "$default",
+							"order": 1
+						}
+					],
+					"collections": [
+						{
+							"collection_id": "blue-charge",
+							"name": "Blue charge"
+						}
+					],
+					"isOverridden": true
+				}
+			]
+		}
+	],
+	"collections": [
+		{
+			"name": "Blue charge",
+			"collection_id": "blue-charge",
+			"description": "",
+			"tags": ""
+		}
+	],
+	"segments": [
+		{
+			"name": "test",
+			"segment_id": "l2dfo8do",
+			"description": "",
+			"tags": "",
+			"rules": [
+				{
+					"values": [
+						"test"
+					],
+					"operator": "startsWith",
+					"attribute_name": "test"
+				}
+			]
+		},
+		{
+			"name": "test1",
+			"segment_id": "l2dfos8y",
+			"description": "",
+			"tags": "",
+			"rules": [
+				{
+					"values": [
+						"afi@"
+					],
+					"operator": "startsWith",
+					"attribute_name": "email"
+				},
+				{
+					"values": [
+						"20"
+					],
+					"operator": "greaterThan",
+					"attribute_name": "number"
+				}
+			]
+		},
+		{
+			"name": "IBMers",
+			"segment_id": "l2dfr61d",
+			"description": "",
+			"tags": "",
+			"rules": [
+				{
+					"values": [
+						"adi@"
+					],
+					"operator": "startsWith",
+					"attribute_name": "email"
+				},
+				{
+					"values": [
+						"gmail.com",
+						"ibm.co",
+						"ibm.com"
+					],
+					"operator": "endsWith",
+					"attribute_name": "email"
+				},
+				{
+					"values": [
+						"adi@ibm.com"
+					],
+					"operator": "is",
+					"attribute_name": "email"
+				},
+				{
+					"values": [
+						"##",
+						"$#",
+						"%$",
+						"@",
+						"@@"
+					],
+					"operator": "contains",
+					"attribute_name": "email"
+				},
+				{
+					"values": [
+						"12.01",
+						"11.99"
+					],
+					"operator": "greaterThan",
+					"attribute_name": "number"
+				},
+				{
+					"values": [
+						"12"
+					],
+					"operator": "greaterThanEquals",
+					"attribute_name": "number"
+				},
+				{
+					"values": [
+						"12"
+					],
+					"operator": "lesserThanEquals",
+					"attribute_name": "numbers"
+				},
+				{
+					"values": [
+						"11.99",
+						"12.01"
+					],
+					"operator": "lesserThan",
+					"attribute_name": "number"
+				}
+			]
+		}
+	]
+}
