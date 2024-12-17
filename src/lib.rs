@@ -40,7 +40,7 @@
 //!
 //! ```
 //! use appconfiguration_rust_sdk::{
-//!     AppConfigurationClient, AppConfigurationClientIBMCloud,
+//!     AppConfigurationClient, AppConfigurationClientIBMCloud, IBMCloudContext,
 //!     Entity, Result, Value, Feature
 //! };
 //! # use std::collections::HashMap;
@@ -57,11 +57,10 @@
 //! # let apikey: &str = "api_key";
 //! # let region: &str = "us-south";
 //! # let guid: &str = "12345678-1234-1234-1234-12345678abcd";
-//! # let environment_id: &str = "production";
-//! # let collection_id: &str = "ecommerce";
 //!
 //! // Create the client connecting to the server
-//! let client = AppConfigurationClientIBMCloud::new(&apikey, &region, &guid, &environment_id, &collection_id)?;
+//! let ibm_context = IBMCloudContext::new("production", "ecommerce");
+//! let client = AppConfigurationClientIBMCloud::new(&apikey, &region, &guid, ibm_context)?;
 //!
 //! // Get the feature you want to evaluate for your entities
 //! let feature = client.get_feature("AB_testing_feature")?;
@@ -89,7 +88,7 @@ mod property;
 mod segment_evaluation;
 mod value;
 
-pub use client::{AppConfigurationClient, AppConfigurationClientIBMCloud};
+pub use client::{AppConfigurationClient, AppConfigurationClientIBMCloud, IBMCloudContext};
 pub use entity::Entity;
 pub use errors::{Error, Result};
 pub use feature::Feature;

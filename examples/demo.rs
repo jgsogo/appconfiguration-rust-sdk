@@ -14,7 +14,10 @@
 
 use std::{collections::HashMap, env, thread, time::Duration};
 
-use appconfiguration_rust_sdk::{AppConfigurationClient, AppConfigurationClientIBMCloud, Entity, Feature, Property, Value};
+use appconfiguration_rust_sdk::{
+    AppConfigurationClient, AppConfigurationClientIBMCloud, Entity, Feature, IBMCloudContext,
+    Property, Value,
+};
 use dotenvy::dotenv;
 use std::error::Error;
 
@@ -48,12 +51,12 @@ fn main() -> std::result::Result<(), Box<dyn Error>> {
     let feature_id = env::var("FEATURE_ID").expect("FEATURE_ID should be set.");
     let property_id = env::var("PROPERTY_ID").expect("PROPERTY_ID should be set.");
 
+    let context = IBMCloudContext::new(&environment_id, &collection_id);
     let client = AppConfigurationClientIBMCloud::new(
         &apikey,
         &region,
         &guid,
-        &environment_id,
-        &collection_id,
+        context,
     )?;
 
     let entity = CustomerEntity {

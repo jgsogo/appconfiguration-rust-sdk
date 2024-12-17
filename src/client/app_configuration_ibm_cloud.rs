@@ -31,6 +31,23 @@ use tungstenite::WebSocket;
 
 use super::AppConfigurationClient;
 
+/// Defines the IDs of the environment and collection from the IBM Cloud AppConfiguration service.
+#[derive(Debug)]
+pub struct IBMCloudContext {
+    pub(crate) environment_id: String,
+    pub(crate) collection_id: String,
+}
+
+impl IBMCloudContext {
+    /// Creates a new instance with the given environment and collection
+    pub fn new(environment_id: &str, collection_id: &str) -> Self {
+        Self {
+            environment_id: environment_id.to_string(),
+            collection_id: collection_id.to_string(),
+        }
+    }
+}
+
 /// AppConfiguration client connection to IBM Cloud.
 #[derive(Debug)]
 pub struct AppConfigurationClientIBMCloud {
@@ -47,26 +64,16 @@ impl AppConfigurationClientIBMCloud {
     /// * `apikey` - The encrypted API key.
     /// * `region` - Region name where the App Configuration service instance is created
     /// * `guid` - Instance ID of the App Configuration service. Obtain it from the service credentials section of the App Configuration dashboard
+    /// * `context` - Contains information about the environment and collection to sue.
     /// * `environment_id` - ID of the environment created in App Configuration service instance under the Environments section.
     /// * `collection_id` - ID of the collection created in App Configuration service instance under the Collections section
-    pub fn new(
-        apikey: &str,
-        region: &str,
-        guid: &str,
-        environment_id: &str,
-        collection_id: &str,
-    ) -> Result<Self> {
+    pub fn new(apikey: &str, region: &str, guid: &str, context: IBMCloudContext) -> Result<Self> {
         let access_token = http::get_access_token(apikey)?;
 
         // Populate initial configuration
-        let latest_config_snapshot: Arc<Mutex<ConfigurationSnapshot>> =
-            Arc::new(Mutex::new(Self::get_configuration_snapshot(
-                &access_token,
-                region,
-                guid,
-                environment_id,
-                collection_id,
-            )?));
+        let latest_config_snapshot: Arc<Mutex<ConfigurationSnapshot>> = Arc::new(Mutex::new(
+            Self::get_configuration_snapshot(&access_token, region, guid, &context)?,
+        ));
 
         // start monitoring configuration
         let terminator = Self::update_cache_in_background(
@@ -74,8 +81,7 @@ impl AppConfigurationClientIBMCloud {
             apikey,
             region,
             guid,
-            environment_id,
-            collection_id,
+            context,
         )?;
 
         let client = AppConfigurationClientIBMCloud {
@@ -90,18 +96,17 @@ impl AppConfigurationClientIBMCloud {
         access_token: &str,
         region: &str,
         guid: &str,
-        environment_id: &str,
-        collection_id: &str,
+        context: &IBMCloudContext,
     ) -> Result<ConfigurationSnapshot> {
         let configuration = http::get_configuration(
             // TODO: access_token might expire. This will cause issues with long-running apps
-            &access_token,
-            &region,
-            &guid,
-            &collection_id,
-            &environment_id,
+            access_token,
+            region,
+            guid,
+            &context.collection_id,
+            &context.environment_id,
         )?;
-        ConfigurationSnapshot::new(environment_id, configuration)
+        ConfigurationSnapshot::new(&context.environment_id, configuration)
     }
 
     fn wait_for_configuration_update(
@@ -109,8 +114,7 @@ impl AppConfigurationClientIBMCloud {
         access_token: &str,
         region: &str,
         guid: &str,
-        collection_id: &str,
-        environment_id: &str,
+        context: &IBMCloudContext,
     ) -> Result<ConfigurationSnapshot> {
         loop {
             // read() blocks until something happens.
@@ -122,8 +126,7 @@ impl AppConfigurationClientIBMCloud {
                             access_token,
                             region,
                             guid,
-                            environment_id,
-                            collection_id,
+                            context,
                         );
                     }
                 },
@@ -141,8 +144,7 @@ impl AppConfigurationClientIBMCloud {
         access_token: String,
         region: String,
         guid: String,
-        collection_id: String,
-        environment_id: String,
+        context: IBMCloudContext,
     ) -> std::sync::mpsc::Sender<()> {
         let (sender, receiver) = std::sync::mpsc::channel();
 
@@ -160,8 +162,7 @@ impl AppConfigurationClientIBMCloud {
                     &access_token,
                     &region,
                     &guid,
-                    &collection_id,
-                    &environment_id,
+                    &context,
                 );
 
                 match config_snapshot {
@@ -183,16 +184,15 @@ impl AppConfigurationClientIBMCloud {
         apikey: &str,
         region: &str,
         guid: &str,
-        environment_id: &str,
-        collection_id: &str,
+        context: IBMCloudContext,
     ) -> Result<std::sync::mpsc::Sender<()>> {
         let access_token = http::get_access_token(&apikey)?;
         let (socket, _response) = http::get_configuration_monitoring_websocket(
             &access_token,
             &region,
             &guid,
-            &collection_id,
-            &environment_id,
+            &context.collection_id,
+            &context.environment_id,
         )?;
 
         let sender = Self::update_configuration_on_change(
@@ -201,8 +201,7 @@ impl AppConfigurationClientIBMCloud {
             access_token,
             region.to_string(),
             guid.to_string(),
-            collection_id.to_string(),
-            environment_id.to_string(),
+            context,
         );
 
         Ok(sender)
