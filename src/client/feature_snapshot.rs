@@ -22,6 +22,7 @@ use crate::segment_evaluation::find_applicable_segment_rule_for_entity;
 
 use crate::errors::Result;
 
+/// Provides a snapshot of a [`Feature`].
 #[derive(Debug)]
 pub struct FeatureSnapshot {
     feature: crate::models::Feature,
@@ -167,7 +168,7 @@ pub mod tests {
             name: "F1".to_string(),
             feature_id: "f1".to_string(),
             kind: ValueKind::Numeric,
-            format: None,
+            _format: None,
             enabled_value: ConfigValue(serde_json::Value::Number((-42).into())),
             disabled_value: ConfigValue(serde_json::Value::Number((2).into())),
             segment_rules,
@@ -208,7 +209,7 @@ pub mod tests {
             name: "F1".to_string(),
             feature_id: "f1".to_string(),
             kind: ValueKind::Numeric,
-            format: None,
+            _format: None,
             enabled_value: ConfigValue(serde_json::Value::Number((-42).into())),
             disabled_value: ConfigValue(serde_json::Value::Number((2).into())),
             segment_rules: Vec::new(),
@@ -230,7 +231,7 @@ pub mod tests {
             name: "F1".to_string(),
             feature_id: "f1".to_string(),
             kind: ValueKind::Numeric,
-            format: None,
+            _format: None,
             enabled_value: ConfigValue(serde_json::Value::Number((-42).into())),
             disabled_value: ConfigValue(serde_json::Value::Number((2).into())),
             segment_rules: vec![TargetingRule {
@@ -249,10 +250,10 @@ pub mod tests {
             HashMap::from([(
                 "some_segment_id".into(),
                 Segment {
-                    name: "".into(),
+                    _name: "".into(),
                     segment_id: "".into(),
-                    description: "".into(),
-                    tags: None,
+                    _description: "".into(),
+                    _tags: None,
                     rules: vec![SegmentRule {
                         attribute_name: "name".into(),
                         operator: "is".into(),
@@ -298,7 +299,7 @@ pub mod tests {
             name: "F1".to_string(),
             feature_id: "f1".to_string(),
             kind: ValueKind::Numeric,
-            format: None,
+            _format: None,
             enabled_value: ConfigValue(serde_json::Value::Number((-42).into())),
             disabled_value: ConfigValue(serde_json::Value::Number((2).into())),
             segment_rules: vec![TargetingRule {
@@ -317,10 +318,10 @@ pub mod tests {
             HashMap::from([(
                 "some_segment_id".into(),
                 Segment {
-                    name: "".into(),
+                    _name: "".into(),
                     segment_id: "".into(),
-                    description: "".into(),
-                    tags: None,
+                    _description: "".into(),
+                    _tags: None,
                     rules: vec![SegmentRule {
                         attribute_name: "name".into(),
                         operator: "is".into(),
@@ -348,7 +349,7 @@ pub mod tests {
             name: "F1".to_string(),
             feature_id: "f1".to_string(),
             kind: ValueKind::Numeric,
-            format: None,
+            _format: None,
             enabled_value: ConfigValue(serde_json::Value::Number((-42).into())),
             disabled_value: ConfigValue(serde_json::Value::Number((2).into())),
             segment_rules: vec![TargetingRule {
@@ -367,10 +368,10 @@ pub mod tests {
             HashMap::from([(
                 "some_segment_id".into(),
                 Segment {
-                    name: "".into(),
+                    _name: "".into(),
                     segment_id: "".into(),
-                    description: "".into(),
-                    tags: None,
+                    _description: "".into(),
+                    _tags: None,
                     rules: vec![SegmentRule {
                         attribute_name: "name".into(),
                         operator: "is".into(),
@@ -396,7 +397,7 @@ pub mod tests {
             name: "F1".to_string(),
             feature_id: "f1".to_string(),
             kind: ValueKind::Numeric,
-            format: None,
+            _format: None,
             enabled_value: ConfigValue(serde_json::Value::Number((-42).into())),
             disabled_value: ConfigValue(serde_json::Value::Number((2).into())),
             segment_rules: vec![
@@ -426,10 +427,10 @@ pub mod tests {
                 (
                     "some_segment_id_1".into(),
                     Segment {
-                        name: "".into(),
+                        _name: "".into(),
                         segment_id: "".into(),
-                        description: "".into(),
-                        tags: None,
+                        _description: "".into(),
+                        _tags: None,
                         rules: vec![SegmentRule {
                             attribute_name: "name".into(),
                             operator: "is".into(),
@@ -440,10 +441,10 @@ pub mod tests {
                 (
                     "some_segment_id_2".into(),
                     Segment {
-                        name: "".into(),
+                        _name: "".into(),
                         segment_id: "".into(),
-                        description: "".into(),
-                        tags: None,
+                        _description: "".into(),
+                        _tags: None,
                         rules: vec![SegmentRule {
                             attribute_name: "name".into(),
                             operator: "is".into(),

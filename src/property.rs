@@ -17,15 +17,19 @@ use crate::{Entity, Value};
 
 /// Access to data and evaluation of IBM AppConfiguration properties
 pub trait Property {
-    /// Returns the full name of the property
+    /// Returns the full name of the property.
     fn get_name(&self) -> Result<String>;
 
-    /// Returns the evaluated value as a [`Value`] instance
+    /// Evaluates a property for the given [`Entity`] and returns a [`Value`].
+    /// 
+    /// Use the methods available in [`Value`] to return the actual primitive value. If
+    /// all you want is the primitive value, you can use the method
+    /// [`get_value_into`](Property::get_value_into) instead.
     /// 
     /// # Examples
     ///
     /// ```
-    /// # use appconfiguration_rust_sdk::{AppConfigurationClient, Property, Result, Entity, Value};
+    /// # use appconfiguration::{AppConfigurationClient, Property, Result, Entity, Value};
     /// # fn doctest_get_value(client: impl AppConfigurationClient, entity: &impl Entity) -> Result<()> {
     ///     let property = client.get_property("my_property")?;
     ///     let value: Value = property.get_value(entity)?;
@@ -42,12 +46,13 @@ pub trait Property {
     /// ```
     fn get_value(&self, entity: &impl Entity) -> Result<Value>;
 
-    /// Returns the evaluated value as the given primitive type, if possible
+    /// Evaluates a property for the given [`Entity`] and returns its value converted (if possible)
+    /// to the given type.
     /// 
     /// # Examples
     ///
     /// ```
-    /// # use appconfiguration_rust_sdk::{AppConfigurationClient, Property, Result, Entity};
+    /// # use appconfiguration::{AppConfigurationClient, Property, Result, Entity};
     /// # fn doctest_get_value_into(client: impl AppConfigurationClient, entity: &impl Entity) -> Result<()> {
     ///     let property = client.get_property("my_bool_feature")?;
     ///     let value: bool = property.get_value_into(entity)?;

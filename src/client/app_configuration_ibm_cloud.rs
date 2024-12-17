@@ -40,7 +40,10 @@ pub struct AppConfigurationClientIBMCloud {
 
 impl AppConfigurationClientIBMCloud {
 
-    /// Creates a new [`AppConfigurationClient`] connecting to IBM Cloud
+    /// Creates a new [`AppConfigurationClient`] connecting to IBM Cloud.
+    /// 
+    /// This client keeps a websocket open to the server to receive live-updates
+    /// to features and properties.
     ///
     /// # Arguments
     ///
@@ -95,11 +98,11 @@ impl AppConfigurationClientIBMCloud {
     ) -> Result<ConfigurationSnapshot> {
         let configuration = http::get_configuration(
             // TODO: access_token might expire. This will cause issues with long-running apps
-            &access_token,
-            &region,
-            &guid,
-            &collection_id,
-            &environment_id,
+            access_token,
+            region,
+            guid,
+            collection_id,
+            environment_id,
         )?;
         ConfigurationSnapshot::new(environment_id, configuration)
     }
@@ -186,13 +189,13 @@ impl AppConfigurationClientIBMCloud {
         environment_id: &str,
         collection_id: &str,
     ) -> Result<std::sync::mpsc::Sender<()>> {
-        let access_token = http::get_access_token(&apikey)?;
+        let access_token = http::get_access_token(apikey)?;
         let (socket, _response) = http::get_configuration_monitoring_websocket(
             &access_token,
-            &region,
-            &guid,
-            &collection_id,
-            &environment_id,
+            region,
+            guid,
+            collection_id,
+            environment_id,
         )?;
 
         let sender = Self::update_configuration_on_change(
