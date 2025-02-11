@@ -1,7 +1,10 @@
 [package]
 name = "appconfiguration"
 version = "0.1.0-rc.0"
-authors = ["Javier G. Sogo <jgsogo@gmail.com>", "Rainer Schoenberger <rschoe@de.ibm.com>"]
+authors = [
+    "Javier G. Sogo <jgsogo@gmail.com>",
+    "Rainer Schoenberger <rschoe@de.ibm.com>",
+]
 edition = "2021"
 description = "The IBM Cloud App Configuration Rust SDK is used to perform feature flag and property evaluation based on the configuration on IBM Cloud App Configuration service."
 repository = "https://github.com/IBM/appconfiguration-rust-sdk"
@@ -31,9 +34,11 @@ url = "2.5.4"
 thiserror = "2.0.7"
 
 [dev-dependencies]
-appconfiguration = {path = ".", features = ["http_client"]}
+appconfiguration = { path = ".", features = ["http_client"] }
 dotenvy = "0.15.7"
 rstest = "0.23.0"
+chrono = "0.4.39"
+spinners-rs = "2.3.0"
 
 [badges]
 github = { repository = "IBM/appconfiguration-rust-sdk" }
