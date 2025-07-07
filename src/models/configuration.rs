@@ -17,11 +17,10 @@ use std::collections::{HashMap, HashSet};
 use crate::errors::{ConfigurationAccessError, Result};
 use crate::network::models::{ConfigurationJson, Feature, Property, Segment, SegmentRule};
 use crate::segment_evaluation::TargetingRules;
-use crate::Error;
+use crate::{ConfigurationProvider, Error};
 
 use super::feature_snapshot::FeatureSnapshot;
 use super::property_snapshot::PropertySnapshot;
-use super::ConfigurationProvider;
 
 /// Represents all the configuration data needed for the client to perform
 /// feature/propery evaluation.

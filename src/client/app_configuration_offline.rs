@@ -12,11 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::client::configuration::Configuration;
+use crate::models::Configuration;
 
-use crate::client::feature_snapshot::FeatureSnapshot;
-use crate::client::property_snapshot::PropertySnapshot;
 use crate::errors::Result;
+use crate::models::{FeatureSnapshot, PropertySnapshot};
 use crate::network::models::ConfigurationJson;
 use crate::ConfigurationProvider;
 

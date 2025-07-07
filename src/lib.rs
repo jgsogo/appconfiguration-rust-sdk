@@ -91,6 +91,8 @@ mod segment_evaluation;
 pub(crate) mod utils;
 mod value;
 
+pub(crate) mod models;
+
 pub use client::{
     AppConfigurationClient, AppConfigurationClientIBMCloud, AppConfigurationOffline,
     ConfigurationId, ConfigurationProvider,

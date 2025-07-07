@@ -12,9 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::client::feature_snapshot::FeatureSnapshot;
-use crate::client::property_snapshot::PropertySnapshot;
 use crate::errors::Result;
+use crate::models::{FeatureSnapshot, PropertySnapshot};
 
 use crate::network::live_configuration::{LiveConfiguration, LiveConfigurationImpl};
 use crate::network::{ServiceAddress, TokenProvider};
@@ -80,7 +79,7 @@ impl<T: LiveConfiguration> ConfigurationProvider for AppConfigurationClientHttp<
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::client::configuration::Configuration;
+    use crate::models::Configuration;
     use crate::network::live_configuration::CurrentMode;
     use crate::network::models::tests::{
         configuration_feature1_enabled, configuration_property1_enabled,

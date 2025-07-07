@@ -16,8 +16,8 @@ use std::collections::HashMap;
 
 use crate::network::models::ConfigurationJson;
 
-use crate::client::configuration::Configuration;
 use crate::client::{AppConfigurationClient, AppConfigurationOffline};
+use crate::models::Configuration;
 use crate::{ConfigurationProvider, Value};
 use rstest::*;
 
