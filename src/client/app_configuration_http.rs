@@ -202,8 +202,13 @@ mod tests {
         {
             let mut metering_data = metering_recv.recv().unwrap();
             assert_eq!(metering_data.usages.len(), 1);
-            assert_eq!(metering_data.collection_id, "test_collection_id"); // FIXME: Mismatch between configuration and metering data
-            assert_eq!(metering_data.environment_id, "test_env_id"); // FIXME: Mismatch between configuration and metering data
+            // The value for the `collection_id` and `environment_id` comes from the `ConfigurationId`
+            // object that was provided to the `start_metering` function. It doesn't match
+            // the `ConfigurationId` that was used to get the `Configuration` object. This
+            // incongruency is only reachable in these tests, not via the public API, so
+            // there is nothing to fix right now.
+            assert_eq!(metering_data.collection_id, "test_collection_id");
+            assert_eq!(metering_data.environment_id, "test_env_id");
 
             metering_data
                 .usages
@@ -264,8 +269,13 @@ mod tests {
         {
             let mut metering_data = metering_recv.recv().unwrap();
             assert_eq!(metering_data.usages.len(), 2);
-            assert_eq!(metering_data.collection_id, "test_collection_id"); // FIXME: Mismatch between configuration and metering data
-            assert_eq!(metering_data.environment_id, "test_env_id"); // FIXME: Mismatch between configuration and metering data
+            // The value for the `collection_id` and `environment_id` comes from the `ConfigurationId`
+            // object that was provided to the `start_metering` function. It doesn't match
+            // the `ConfigurationId` that was used to get the `Configuration` object. This
+            // incongruency is only reachable in these tests, not via the public API, so
+            // there is nothing to fix right now.
+            assert_eq!(metering_data.collection_id, "test_collection_id");
+            assert_eq!(metering_data.environment_id, "test_env_id");
 
             metering_data
                 .usages
